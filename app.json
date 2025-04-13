@@ -1,11 +1,11 @@
 {
   "expo": {
     "name": "Vize",
-    "slug": "Vize",
+    "slug": "vize",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "vize",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
