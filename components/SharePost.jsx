@@ -1,119 +1,110 @@
-import { View, Text, SafeAreaView, ScrollView, TouchableOpacity,Image } from 'react-native'
-import { useState } from 'react'
-import React from 'react'
-import FormField from './FormField'
-import icons from '../constants/icons'
-import CustomButton from './CustomButton'
-import * as DocumentPicker from 'expo-document-picker';
-import { Alert } from 'react-native'
-
+import {
+  View,
+  Text,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+} from "react-native";
+import { useState } from "react";
+import FormField from "./FormField";
+import icons from "../constants/icons";
+import CustomButton from "./CustomButton";
+import * as ImagePicker from "expo-image-picker";
 
 const SharePost = () => {
+  const openPicker = async (index) => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== "granted") {
+      alert("Galeriye erişim izni gerekiyor!");
+      return;
+    }
 
-  const openPicker = async (selectType) => {
-    const result = await DocumentPicker.getDocumentAsync({
-      type:
-        selectType === "image"
-          ? ["image/png", "image/jpg"]
-          : ["video/mp4", "video/gif"],
+    const result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      allowsMultipleSelection: false,
+      quality: 1,
     });
 
     if (!result.canceled) {
-      if (selectType === "image") {
-        setForm({
-          ...form,
-          thumbnail: result.assets[0],
-        });
-      }
-
-      if (selectType === "video") {
-        setForm({
-          ...form,
-          video: result.assets[0],
-        });
-      }
-    } else {
-      setTimeout(() => {
-        Alert.alert("Document picked", JSON.stringify(result, null, 2));
-      }, 100);
+      const updatedThumbnails = [...form.thumbnail];
+      updatedThumbnails[index] = result.assets[0]; // ya da sadece { uri: result.assets[0].uri }
+      setForm({ ...form, thumbnail: updatedThumbnails });
     }
   };
 
-    const submit = () => {}
+  const removeImage = (index) => {
+    const updatedThumbnails = [...form.thumbnail];
+    updatedThumbnails[index] = null;
+    setForm({ ...form, thumbnail: updatedThumbnails });
+  };
 
-    const [uploading, setUploading] = useState(false);
+  const submit = () => {};
 
-    const [form, setForm] = useState({
-        title: '',
-        thumbnail: null,
-        prompt: '',
-        id: 0
-    })
+  const [uploading, setUploading] = useState(false);
+
+  const [form, setForm] = useState({
+    title: "",
+    thumbnail: [null, null, null],
+    prompt: "",
+    id: 0,
+  });
 
   return (
-    <SafeAreaView className="w-screen flex justify-center"
-    edges={['left','right']}>
-        <ScrollView className="px-4 my-6">
-            <FormField
-            title="Etkinlik Adı:"
-            value={form.title}
-            placeholder={'Bir Etkinlik Adı Giriniz'}
-            handleChangeText={(e) => setForm({...form, title: e})}
-            />
+    <SafeAreaView
+      className="w-screen flex justify-center"
+      edges={["left", "right"]}
+    >
+      <ScrollView className="px-4 my-6">
+        <FormField
+          title="Etkinlik Adı:"
+          value={form.title}
+          placeholder={"Bir Etkinlik Adı Giriniz"}
+          handleChangeText={(e) => setForm({ ...form, title: e })}
+        />
 
-            <View className="mt-7 space-y-2">
-                <Text className="text-base text-gray-100 font-pmedium">
-                    Fotoğraf Yükle
-                </Text>
-                <TouchableOpacity onPress={() => openPicker('image')}>
-                    {form.thumbnail ? (
-                        <Image
-                        source={{ uri: form.thumbnail.uri }}
-                        resizeMode="cover"
-                        className="w-full h-64 rounded-2xl"
-                        />
-                    ) : (
-                        <View className='w-full h-40 px-4 bg-black-100 rounded-2xl
-                        justify-center items-center flex-row'>
-                            <View className='w-14 h-14 border border-dashed
-                            border-secondary-100 justify-center items-center mx-3'>
-                                <Image
-                                source={icons.upload}
-                                resizeMode='contain'
-                                className='w-1/2 h-1/2'
-                                />
-                            </View>
-                            <Text className='text-sm text-gray-100 font-pmedium'>Choose a file</Text>
-                        </View>
-                    )}
-                    
-                    
+        <View className="mt-7 space-y-2">
+          <Text className="text-base text-gray-100 font-pmedium">
+            Fotoğraf Yükle
+          </Text>
 
-                </TouchableOpacity>
-            </View>
-            <View>
+          <View className="flex-row space-x-4 mt-3">
+            {form.thumbnail.map((thumb, index) => (
+              <TouchableOpacity key={index} onPress={() => openPicker(index)}>
+                {thumb ? (
+                  <Image
+                    source={{ uri: thumb.uri }}
+                    resizeMode="cover"
+                    className="w-36 h-36 rounded-2xl ml-2"
+                  />
+                ) : (
+                  <View className="w-36 h-36 border border-secondary border-dashed items-center justify-center rounded-2xl ml-2">
+                    <Image className="w-10 h-10" source={icons.plus} />
+                  </View>
+                )}
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
 
-            </View>
-            <View className="mt-4">
-            <FormField
+        <View className="mt-4">
+          <FormField
             title="Etkinlik Adı:"
             value={form.prompt}
-            placeholder={'Bir Etkinlik Adı Giriniz'}
-            handleChangeText={(e) => setForm({...form, prompt: e})}
-            />
-            </View>
+            placeholder={"Bir Etkinlik Adı Giriniz"}
+            handleChangeText={(e) => setForm({ ...form, prompt: e })}
+          />
+        </View>
 
-            <CustomButton
-            title='Paylaş'
-            handlePress={submit}
-            containerStyles={'mt-7 '}
-            isLoading={uploading}
-
-            />
-
-        </ScrollView>
+        <CustomButton
+          title="Paylaş"
+          handlePress={submit}
+          containerStyles={"mt-7 "}
+          isLoading={uploading}
+        />
+      </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default SharePost
+export default SharePost;

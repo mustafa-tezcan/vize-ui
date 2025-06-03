@@ -2,55 +2,64 @@ export let data = [
   {
     id: 1,
     title: "İstanbulda Etkinlik",
-    creator: "Mustafa",
-    avatar: "https://shorturl.at/ESHZF",
+    creator: "Ege",
+    avatar: "https://shorturl.at/AHLD7",
+    eventPoint: "100",
     thumbnails: [
-      "https://www.missafir.com/blog/wp-content/uploads/2023/09/istanbul-eylul-konserleri-etkinlik-rehberi.jpg",
-      "https://www.missafir.com/blog/wp-content/uploads/2023/10/istanbul-konser.jpg.webp",
-      "https://www.missafir.com/blog/wp-content/uploads/2023/10/istanbul-konser.jpg.webp",
+      "1743099743645-89801316.png",
+      "1744545254203-438151998.png",
+      "1744547543687-520033203.png",
     ],
-    price: "7.39$",
+    price: "8.99$",
     participant: "1/2",
-    location: "İstanbul Sardunya Sokak no 3 kayisdagi",
+    location: "İstanbul kayisdagi",
     likeCount: 24,
     liked: true,
+    comment:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.",
+    date: "2025,10 Aralık",
+    time: "12:00",
+    qr: {
+      createdAt: "2025-05-25T13:25:00.980Z",
+      ticketId: "54ac4bac-cb7b-4ee1-a472-1f54aea7d7cb",
+    },
   },
   {
     id: 2,
+    eventPoint: "200",
     title: "İstanbulda Etkinlik",
     creator: "Mustafa",
-    avatar: "https://shorturl.at/ESHZF",
-    thumbnails: [
-      "https://www.missafir.com/blog/wp-content/uploads/2023/10/istanbul-konser.jpg.webp",
-      "https://www.missafir.com/blog/wp-content/uploads/2023/10/istanbul-konser.jpg.webp",
-      "https://www.missafir.com/blog/wp-content/uploads/2023/10/istanbul-konser.jpg.webp",
-    ],
-    price: "7.39$",
+    avatar: "https://shorturl.at/7bnQl",
+    thumbnails: ["1744547543687-520033203.png", "1744545254203-438151998.png"],
+    price: "9.90$",
     participant: "2/5",
     location: "İstanbul Umraniye",
     likeCount: 13,
     liked: false,
+    comment: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    date: "2025,3 Ekim",
+    time: "14:00",
+    qr: "ege gelen",
   },
   {
     id: 3,
+    eventPoint: "100",
     title: "İstanbulda Etkinlik",
-    creator: "Mustafa",
-    avatar: "https://shorturl.at/ESHZF",
-    thumbnails: [
-      "https://www.missafir.com/blog/wp-content/uploads/2023/09/istanbul-konserleri.jpg",
-    ],
-    price: "7.39$",
+    creator: "Halil",
+    avatar: "https://shorturl.at/gMCr5",
+    thumbnails: ["1744545254203-438151998.png", "1744547543687-520033203.png"],
+    price: "14.99$",
     participant: "3/4",
     location: "İstanbul",
     likeCount: 41,
     liked: true,
+    comment:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.",
+    date: "2025,1 Ocak",
+    time: "10:00",
+    qr: "mustafa tezcan",
   },
 ];
-
-export const toggleLike = (id) => {
-  const index = data.findIndex(item => item.id === id);
-
-};
 
 export const local_data = [
   {
@@ -89,5 +98,3 @@ export const local_data = [
     },
   },
 ];
-
-

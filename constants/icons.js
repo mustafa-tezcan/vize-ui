@@ -12,10 +12,18 @@ import eyeHide from "../assets/icons/eye-hide.png";
 import eye from "../assets/icons/eye.png";
 import play from "../assets/icons/play.png";
 import chat from "../assets/icons/chat.png";
-import discovery from "../assets/icons/discovery.png"
-import ticket from '../assets/icons/ticket.png'
-import unlike from '../assets/icons/unlike.png'
-import like from '../assets/icons/like.png'
+import discovery from "../assets/icons/discovery.png";
+import ticket from "../assets/icons/ticket.png";
+import unlike from "../assets/icons/unlike.png";
+import like from "../assets/icons/like.png";
+import location from "../assets/icons/location.png";
+import joinEvent from "../assets/icons/joinEvent.png";
+import joined from "../assets/icons/joined.png";
+import send from "../assets/icons/send.png";
+import settings from "../assets/icons/settings.png";
+import accept from "../assets/icons/accept.png";
+import reject from "../assets/icons/reject.png";
+import bin from "../assets/icons/bin.png";
 
 export default {
   play,
@@ -35,5 +43,13 @@ export default {
   discovery,
   ticket,
   unlike,
-  like
+  like,
+  location,
+  joinEvent,
+  joined,
+  send,
+  settings,
+  accept,
+  reject,
+  bin,
 };

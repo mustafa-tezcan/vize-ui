@@ -1,5 +1,11 @@
 import React, { useRef, useState } from "react";
-import { View, Text, ScrollView, TouchableOpacity, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 import { SafeAreaView } from "react-native";
 import { StyleSheet } from "react-native";
 import SharePost from "../../components/SharePost";
@@ -8,9 +14,6 @@ import ShareEvent from "../../components/ShareEvent";
 const { width } = Dimensions.get("window");
 
 const CreateScreen = () => {
-
-  const [user, setUser] = useState(true); // true ise SharePost, false ise CreatePost
-
   const [activePage, setActivePage] = useState(0);
   const scrollViewRef = useRef(null);
 
@@ -28,24 +31,33 @@ const CreateScreen = () => {
   };
 
   return (
-    <SafeAreaView className="bg-primary h-full" edges={['left', 'right']}>
-
+    <SafeAreaView className="bg-primary h-full" edges={["left", "right"]}>
       {/* Üst Menü */}
       <View className="flex-row justify-between mt-4 mx-4 items-center py-2">
         <TouchableOpacity onPress={() => goToPage(0)}>
-          <Text 
+          <Text
             style={[activePage === 0 && styles.activeMenuText]}
-            className={"text-base leading-normal " + (activePage === 0 ? "text-secondary font-psemibold" : "text-white font-psemibold")}
-            >
+            className={
+              "text-base leading-normal " +
+              (activePage === 0
+                ? "text-secondary font-psemibold"
+                : "text-white font-psemibold")
+            }
+          >
             Post Paylaş
           </Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => goToPage(1)}>
-          <Text 
+          <Text
             style={[activePage === 1 && styles.activeMenuText]}
-            className={"text-base leading-normal " + (activePage === 1 ? "text-secondary font-psemibold" : "text-white font-psemibold")}
-            >
+            className={
+              "text-base leading-normal " +
+              (activePage === 1
+                ? "text-secondary font-psemibold"
+                : "text-white font-psemibold")
+            }
+          >
             Etkinlik Paylaş
           </Text>
         </TouchableOpacity>
@@ -62,22 +74,20 @@ const CreateScreen = () => {
       >
         {/**bu sayfanın içeriğini user mı yoksa creator mu olduğuna göre farklı renderlıycam */}
         {/* Sayfa 1 */}
-        {user ? <SharePost /> : <ShareEvent />}
+        <SharePost />
 
         {/* Sayfa 2 */}
-        <ShareEvent/>
-
+        <ShareEvent />
       </ScrollView>
-
     </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create({
   activeMenuText: {
     fontSize: 22, // Aktif olan daha büyük olacak
     fontWeight: "bold",
-  }
-})
+  },
+});
 
 export default CreateScreen;
