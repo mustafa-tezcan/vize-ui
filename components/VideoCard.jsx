@@ -19,7 +19,7 @@ const VideoCard = ({
           <View className="w-[46px] h-[46px] rounded-lg border flex justify-center items-center p-0.5">
             <Image
               source={{
-                uri: `http://localhost:8000/profilepicture/${avatar}`,
+                uri: `http://192.168.1.6:8080/media${avatar}`,
               }}
               className="w-full h-full rounded-lg"
               resizeMode="cover"

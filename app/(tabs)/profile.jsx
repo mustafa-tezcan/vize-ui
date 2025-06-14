@@ -20,6 +20,7 @@ import Ticket from "../../components/Ticket";
 import Modal from "react-native-modal";
 import { router } from "expo-router";
 import ProfilePicture from "../../components/ProfilePicture";
+import { deleteToken } from "../../AuthService";
 
 const { width } = Dimensions.get("window"); // Cihazın genişliği
 
@@ -119,7 +120,10 @@ const Profile = () => {
           {/* Çıkış Yap */}
           <View className="mt-8 ml-3 mb-4">
             <TouchableOpacity
-              onPress={() => router.push("../(notifications)/deneme")}
+              onPress={() => {
+                deleteToken();
+                router.replace("../(auth)/sign-in");
+              }}
             >
               <View className="flex-row gap-x-3">
                 <Image

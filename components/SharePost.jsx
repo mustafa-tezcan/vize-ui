@@ -11,6 +11,8 @@ import FormField from "./FormField";
 import icons from "../constants/icons";
 import CustomButton from "./CustomButton";
 import * as ImagePicker from "expo-image-picker";
+import { apiRequest } from "../CustomFetch";
+import { getToken, saveToken } from "../AuthService";
 
 const SharePost = () => {
   const openPicker = async (index) => {
@@ -39,16 +41,72 @@ const SharePost = () => {
     setForm({ ...form, thumbnail: updatedThumbnails });
   };
 
-  const submit = () => {};
+  const submit = async () => {
+    console.log("Form submitted:", filteredThumbnails);
+    if (!form.prompt.trim()) {
+      alert("Please enter a caption!");
+      return;
+    }
+
+    if (filteredThumbnails.length !== 3) {
+      alert("Choose at least three pictures!");
+      return;
+    }
+    const formData = new FormData();
+
+    formData.append("caption", form.prompt);
+
+    // 1. görsel
+    if (filteredThumbnails[0]) {
+      formData.append("post1", {
+        uri: filteredThumbnails[0].uri,
+        name: filteredThumbnails[0].uri.split("/").pop(),
+        type: filteredThumbnails[0].mimeType || "image/jpeg",
+      });
+    }
+
+    // 2. görsel
+    if (filteredThumbnails[1]) {
+      formData.append("post2", {
+        uri: filteredThumbnails[1].uri,
+        name: filteredThumbnails[1].uri.split("/").pop(),
+        type: filteredThumbnails[1].mimeType || "image/jpeg",
+      });
+    }
+
+    // 3. görsel
+    if (filteredThumbnails[2]) {
+      formData.append("post3", {
+        uri: filteredThumbnails[2].uri,
+        name: filteredThumbnails[2].uri.split("/").pop(),
+        type: filteredThumbnails[2].mimeType || "image/jpeg",
+      });
+    }
+
+    await fetch("http://192.168.1.6:8080/api/posts/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: "BEARER " + (await getToken()),
+      },
+      body: formData,
+    })
+      .then((response) => {
+        console.log("Response:", response);
+        setForm({ thumbnail: [null, null, null], prompt: "" });
+      })
+      .catch((error) => {
+        console.error("Error submitting form:", error);
+      });
+  };
 
   const [uploading, setUploading] = useState(false);
 
   const [form, setForm] = useState({
-    title: "",
     thumbnail: [null, null, null],
     prompt: "",
-    id: 0,
   });
+  const filteredThumbnails = form.thumbnail.filter((file) => file !== null);
 
   return (
     <SafeAreaView
@@ -56,16 +114,9 @@ const SharePost = () => {
       edges={["left", "right"]}
     >
       <ScrollView className="px-4 my-6">
-        <FormField
-          title="Etkinlik Adı:"
-          value={form.title}
-          placeholder={"Bir Etkinlik Adı Giriniz"}
-          handleChangeText={(e) => setForm({ ...form, title: e })}
-        />
-
-        <View className="mt-7 space-y-2">
+        <View className="mt-2 space-y-2">
           <Text className="text-base text-gray-100 font-pmedium">
-            Fotoğraf Yükle
+            Upload a Photo:
           </Text>
 
           <View className="flex-row space-x-4 mt-3">
@@ -89,15 +140,15 @@ const SharePost = () => {
 
         <View className="mt-4">
           <FormField
-            title="Etkinlik Adı:"
+            title="Caption:"
             value={form.prompt}
-            placeholder={"Bir Etkinlik Adı Giriniz"}
+            placeholder={"Enter a caption for your post"}
             handleChangeText={(e) => setForm({ ...form, prompt: e })}
           />
         </View>
 
         <CustomButton
-          title="Paylaş"
+          title="Share"
           handlePress={submit}
           containerStyles={"mt-7 "}
           isLoading={uploading}

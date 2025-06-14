@@ -1,8 +1,7 @@
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTEyYjUyMjJlNGFjMDRlNzExM2I2MCIsInVzZXJuYW1lIjoiZWdlbGVuIiwiaWF0IjoxNzM4OTMwODk4fQ.RqaaRZsjQNIi3t1gTixHciri_N7OvgjgZWDr9s37mNI";
+import { getToken } from "./AuthService"; // auth.js dosyasından getToken fonksiyonunu içe aktar
 
 export const apiRequest = async ({
-  baseUrl = "http://10.22.101.157:8000",
+  baseUrl = "http://192.168.1.6:8080",
   endpoint,
   method = "GET",
   queryParams = {},
@@ -10,7 +9,7 @@ export const apiRequest = async ({
 }) => {
   const queryString = new URLSearchParams(queryParams).toString();
   const url = `${baseUrl}${endpoint}${queryString ? `?${queryString}` : ""}`;
-
+  const token = await getToken(); // Token'ı alıyoruz
   const options = {
     method,
     headers: {

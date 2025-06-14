@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import VideoCard from "../../components/VideoCard";
 import DropdownComponent from "../../components/DropDown";
 import { apiRequest } from "../../CustomFetch";
+import { getToken } from "../../AuthService";
 
 const BigEvents = () => {
   const [datas, setData] = useState([]);
@@ -34,6 +35,7 @@ const BigEvents = () => {
         selectedType,
       method: "GET",
     }).then((datas) => {
+      console.log("FILTERED DATA", datas);
       setData(datas);
       setLoading(false);
     });
@@ -42,10 +44,11 @@ const BigEvents = () => {
   useEffect(() => {
     setLoading(true);
     apiRequest({
-      endpoint: "/api/countries",
+      endpoint: "/api/location/countries",
       method: "GET",
     }).then((datas) => {
-      setCountries(datas);
+      console.log("DATAS", datas);
+      setCountries(datas.data);
       setLoading(false);
     });
   }, []);
@@ -54,10 +57,11 @@ const BigEvents = () => {
     if (!selectedCountry) return;
     setLoading(true);
     apiRequest({
-      endpoint: "/api/cities/" + selectedCountry,
+      endpoint: "/api/location/cities/" + selectedCountry,
       method: "GET",
     }).then((datas) => {
-      setCities(datas);
+      console.log("CITIES", datas);
+      setCities(datas.data);
       setLoading(false);
     });
   }, [selectedCountry]);
@@ -144,13 +148,13 @@ const BigEvents = () => {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <VideoCard
-            pictures={item.picture}
+            pictures={item.pictures}
             title={item.name}
             creator={item.Organization.organizationName}
             avatar={item.Organization.profilePicture}
             id={item.id}
             price={item.price}
-            location={item.district}
+            location={item.location}
           />
         )}
         ListHeaderComponent={headerComponent}

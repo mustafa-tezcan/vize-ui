@@ -11,7 +11,7 @@ const ProfilePicture = ({ source, style, disabled }) => {
     >
       <TouchableOpacity disabled={disabled} activeOpacity={0.7}>
         <Image
-          source={{ uri: source }}
+          source={{ uri: "http://192.168.1.6:8080/media/" + source }}
           className={"rounded-lg   " + style}
           resizeMode="cover"
         />

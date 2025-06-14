@@ -10,6 +10,8 @@ const FormField = ({
   placeholder,
   handleChangeText,
   otherStyles,
+  keyboardType,
+  inputMode,
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -27,6 +29,8 @@ const FormField = ({
         }
       >
         <TextInput
+          keyboardType={keyboardType}
+          inputMode={inputMode}
           focusable={true}
           className="flex-1 text-white font-psemibold text-base"
           value={value}

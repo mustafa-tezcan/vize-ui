@@ -1,9 +1,8 @@
 import { View, Text, SafeAreaView, FlatList } from "react-native";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import * as Location from "expo-location";
 import SmallCard from "../../components/SmallCard";
 import Slider from "@react-native-community/slider";
-import { data } from "../../GlobalData";
 import { apiRequest } from "../../CustomFetch";
 
 const smallEvents = () => {
@@ -29,12 +28,12 @@ const smallEvents = () => {
 
       // Konum alındıktan sonra fetch
       apiRequest({
-        endpoint: `/api/smallevent/nearby-locations?lat=${41.001}&lng=${28.6414}&dist=${value}`,
+        endpoint: `/small/small-events/nearby?lat=${lat}&lng=${lng}&dist=${value}`,
         method: "GET",
       })
         .then((datas) => {
-          setData(datas);
-          console.log("Veri:", datas);
+          setData(datas.data);
+          console.log("Veri:", datas[0]);
         })
         .catch((err) => console.error("Hata:", err));
     } catch (error) {
@@ -49,17 +48,17 @@ const smallEvents = () => {
   return (
     <SafeAreaView className="bg-primary h-full" edges={["left", "right"]}>
       <FlatList
-        data={data}
-        keyExtractor={(item) => item.id.toString()}
+        data={datas}
+        keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <SmallCard
             eventPoint={item.eventPoint}
-            title={item.title}
-            creator={item.creator}
+            title={item.name}
+            creator={item.owner.username}
             avatar={item.avatar}
-            id={item.id}
-            participant={item.participant}
-            location={item.location}
+            id={item._id}
+            participant={item.quota}
+            quota={item.quota}
           />
         )}
         ListHeaderComponent={

@@ -10,6 +10,7 @@ const SmallCard = ({
   participant,
   location,
   eventPoint,
+  quota,
 }) => {
   const handleJoinPress = () => {
     Alert.alert(
@@ -61,7 +62,7 @@ const SmallCard = ({
               className="font-psemibold text-sm text-white"
               numberOfLines={1}
             >
-              {creator}
+              kullanıcı adı
             </Text>
             <Text
               className="text-xs text-gray-100 font-pregular"
@@ -89,7 +90,7 @@ const SmallCard = ({
               className="text-white font-psemibold text-l"
               numberOfLines={1}
             >
-              {participant}
+              {participant} / {quota}
             </Text>
           </View>
         </View>
@@ -105,11 +106,22 @@ const SmallCard = ({
             soluta.
           </Text>
         </View>
+
         <View className="flex-1  items-center ">
-          <TouchableOpacity onPress={handleJoinPress}>
-            <View className="mx-2 mt-3 items-center">
-              <Image source={icons.send} className="w-10 h-10" />
-              <Text className="text-white">istek gönder</Text>
+          <TouchableOpacity
+            onPress={handleJoinPress}
+            disabled={participant >= quota ? true : false}
+          >
+            <View className="mx-2 mt-3 items-center ">
+              {participant >= quota ? (
+                <Image
+                  source={icons.reject}
+                  className="w-10 h-10"
+                  style={{ opacity: 0.5 }}
+                />
+              ) : (
+                <Image source={icons.join} className="w-10 h-10" />
+              )}
             </View>
           </TouchableOpacity>
         </View>

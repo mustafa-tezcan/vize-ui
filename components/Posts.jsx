@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import { icons } from "../constants";
 import ScView from "../components/ScView";
 import ProfilePicture from "./ProfilePicture";
+import { apiRequest } from "../CustomFetch";
 
 const Posts = ({
   title,
@@ -13,6 +14,7 @@ const Posts = ({
   likeCount,
   liked,
   comments,
+  userID,
 }) => {
   const [isLiked, setIsLiked] = useState(liked);
   const [likes, setLikes] = useState(likeCount);
@@ -20,6 +22,16 @@ const Posts = ({
   const handlePress = () => {
     setIsLiked(!isLiked);
     setLikes(isLiked ? likes - 1 : likes + 1);
+    apiRequest({
+      endpoint: "/api/posts/posts/" + id + "/like",
+      method: "PATCH",
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((res) => {
+        console.log(res);
+      });
   };
 
   return (

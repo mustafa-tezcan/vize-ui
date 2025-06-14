@@ -44,7 +44,7 @@ const CreateScreen = ({ data, id, isDisabled }) => {
           >
             <View style={styles.imageContainer}>
               <Image
-                source={{ uri: `http://localhost:8000/eventphotos/${img}` }}
+                source={{ uri: `http://192.168.1.6:8080/media${img}` }}
                 className="w-[95%]  h-[250px] rounded-3xl"
                 resizeMode="cover"
               />

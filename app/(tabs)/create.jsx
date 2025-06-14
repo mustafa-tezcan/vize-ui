@@ -44,7 +44,7 @@ const CreateScreen = () => {
                 : "text-white font-psemibold")
             }
           >
-            Post Paylaş
+            Share Post
           </Text>
         </TouchableOpacity>
 
@@ -58,7 +58,7 @@ const CreateScreen = () => {
                 : "text-white font-psemibold")
             }
           >
-            Etkinlik Paylaş
+            Share Event
           </Text>
         </TouchableOpacity>
       </View>

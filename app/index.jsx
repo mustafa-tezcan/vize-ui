@@ -4,8 +4,21 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../constants";
 import CustomButton from "../components/CustomButton";
 import { router } from "expo-router";
+import { useEffect } from "react";
+import { getToken } from "../AuthService";
 
 const Index = () => {
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      const token = await getToken();
+      console.log("Token kontrolü yapılıyor:", token);
+      if (token) {
+        router.replace("/(tabs)/bigEvents");
+      }
+    };
+    checkLoginStatus();
+  }, []);
+
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView
@@ -49,7 +62,7 @@ const Index = () => {
 
             <CustomButton
               title={"Get Started"}
-              handlePress={() => router.push("(tabs)/bigEvents")}
+              handlePress={() => router.replace("(auth)/sign-in")}
               //handlePress={() => router.push("(settings)/account")}
               containerStyles="w-full mt-7"
             />

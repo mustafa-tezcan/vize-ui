@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { View, Text, ScrollView, Dimensions, Alert, Image } from "react-native";
@@ -6,8 +6,47 @@ import { View, Text, ScrollView, Dimensions, Alert, Image } from "react-native";
 import { images } from "../../constants";
 import CustomButton from "../../components/CustomButton";
 import FormField from "../../components/FormField";
+import { Navigator } from "expo-router";
+
+import { useContext } from "react";
+import { AuthContext } from "../../AuthContext";
+import axios from "axios";
+import { getToken, saveToken } from "../../AuthService";
+import { apiRequest } from "../../CustomFetch";
 
 const SignIn = () => {
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      const token = await getToken();
+      console.log("Token kontrolü yapılıyor:", token);
+    };
+    checkLoginStatus();
+  }, []);
+  const { login } = useContext(AuthContext);
+
+  const handleSignIn = async () => {
+    //validate form çağırcam
+    await apiRequest({
+      endpoint: "/api/login",
+      body: {
+        username: form.email,
+        password: form.password,
+      },
+      method: "POST",
+    }).then(async (res) => {
+      console.log("Giriş isteği başarılı:", res);
+      const token = res.token;
+      if (token) {
+        await login(token);
+        router.replace("/(tabs)/bigEvents");
+
+        // AuthContext üzerinden login fonksiyonunu çağır
+      } else {
+        Alert.alert("Giriş başarısız", "Lütfen bilgilerinizi kontrol edin.");
+      }
+    });
+  };
+
   const [tabs, setTabs] = useState(true);
   const [isSubmitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
@@ -81,7 +120,7 @@ const SignIn = () => {
 
           <CustomButton
             title="Sign In"
-            handlePress={submit}
+            handlePress={handleSignIn}
             containerStyles="mt-7"
             isLoading={isSubmitting}
           />

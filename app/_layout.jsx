@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import "../global.css";
-import { colorScheme } from "nativewind";
+import { AuthProvider } from "../AuthContext";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -37,72 +37,89 @@ const RootLayout = () => {
   }
 
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-      <Stack.Screen name="(organizor_tabs)" options={{ headerShown: false }} />
-      <Stack.Screen
-        name="TicketPage"
-        options={{
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: "#161622", // istediğiniz renk kodunu buraya yazabilirsiniz
-          },
-          headerTitle: "", // Notifications yazısını gizler
-          headerBackTitle: "home",
-          headerTintColor: "#FFA300", // geri butonunun rengi (ikon ve yazı)
-        }}
-      />
-      <Stack.Screen
-        name="(notifications)"
-        options={{
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: "#161622", // istediğiniz renk kodunu buraya yazabilirsiniz
-          },
-          headerTitle: "", // Notifications yazısını gizler
-          headerBackTitle: "back",
-          headerTintColor: "#FFA300", // geri butonunun rengi (ikon ve yazı)
-        }}
-      />
-      <Stack.Screen
-        name="(settings)"
-        options={{
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: "#161622", // istediğiniz renk kodunu buraya yazabilirsiniz
-          },
-          headerTitle: "", // Notifications yazısını gizler
-          headerBackTitle: "profile",
-          headerTintColor: "#FFA300", // geri butonunun rengi (ikon ve yazı)
-        }}
-      />
-      <Stack.Screen
-        name="(friends)"
-        options={{
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: "#161622", // istediğiniz renk kodunu buraya yazabilirsiniz
-          },
-          headerTitle: "", // Friends yazısını gizler
-          headerBackTitle: "profile",
-          headerTintColor: "#FFA300", // geri butonunun rengi (ikon ve yazı)
-        }}
-      />
-      <Stack.Screen
-        name="(employee_tabs)"
-        options={{
-          headerShown: false,
-          headerStyle: {
-            backgroundColor: "#161622", // istediğiniz renk kodunu buraya yazabilirsiniz
-          },
-          headerTitle: "", // Events yazısını gizler
-          headerBackTitle: "back",
-          headerTintColor: "#FFA300", // geri butonunun rengi (ikon ve yazı)
-        }}
-      />
-    </Stack>
+    <AuthProvider>
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="(organizor_tabs)"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="TicketPage"
+          options={{
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: "#161622", // istediğiniz renk kodunu buraya yazabilirsiniz
+            },
+            headerTitle: "", // Notifications yazısını gizler
+            headerBackTitle: "home",
+            headerTintColor: "#FFA300", // geri butonunun rengi (ikon ve yazı)
+          }}
+        />
+        <Stack.Screen
+          name="(notifications)"
+          options={{
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: "#161622", // istediğiniz renk kodunu buraya yazabilirsiniz
+            },
+            headerTitle: "", // Notifications yazısını gizler
+            headerBackTitle: "back",
+            headerTintColor: "#FFA300", // geri butonunun rengi (ikon ve yazı)
+          }}
+        />
+        <Stack.Screen
+          name="(settings)"
+          options={{
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: "#161622", // istediğiniz renk kodunu buraya yazabilirsiniz
+            },
+            headerTitle: "", // Notifications yazısını gizler
+            headerBackTitle: "profile",
+            headerTintColor: "#FFA300", // geri butonunun rengi (ikon ve yazı)
+          }}
+        />
+        <Stack.Screen
+          name="(friends)"
+          options={{
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: "#161622", // istediğiniz renk kodunu buraya yazabilirsiniz
+            },
+            headerTitle: "", // Friends yazısını gizler
+            headerBackTitle: "profile",
+            headerTintColor: "#FFA300", // geri butonunun rengi (ikon ve yazı)
+          }}
+        />
+        <Stack.Screen
+          name="(employee_tabs)"
+          options={{
+            headerShown: false,
+            headerStyle: {
+              backgroundColor: "#161622", // istediğiniz renk kodunu buraya yazabilirsiniz
+            },
+            headerTitle: "", // Events yazısını gizler
+            headerBackTitle: "back",
+            headerTintColor: "#FFA300", // geri butonunun rengi (ikon ve yazı)
+          }}
+        />
+        <Stack.Screen
+          name="(FriendProfile)"
+          options={{
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: "#161622", // istediğiniz renk kodunu buraya yazabilirsiniz
+            },
+            headerTitle: "", // Events yazısını gizler
+            headerBackTitle: "back",
+            headerTintColor: "#FFA300", // geri butonunun rengi (ikon ve yazı)
+          }}
+        />
+      </Stack>
+    </AuthProvider>
   );
 };
 
