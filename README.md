@@ -1,6 +1,6 @@
 # 🎫 vize-ui
 
-**vize-ui**, kullanıcıların çeşitli etkinliklere katılabildiği, arkadaşlarıyla sosyal etkileşime geçebildiği ve kendi etkinliklerini oluşturabildiği modern bir web uygulamasıdır. Konserler, spor organizasyonları, sosyal buluşmalar gibi biletli etkinliklerin yanı sıra, bireysel etkinliklerin planlanmasına da olanak tanır.
+**vize-ui**, kullanıcıların çeşitli etkinliklere katılabildiği, arkadaşlarıyla sosyal etkileşime geçebildiği ve kendi etkinliklerini oluşturabildiği modern bir mobil uygulamadır. Konserler, spor organizasyonları, sosyal buluşmalar gibi biletli etkinliklerin yanı sıra, bireysel etkinliklerin planlanmasına da olanak tanır.
 
 ---
 
@@ -60,11 +60,9 @@ Bu proje, hem sosyal medya özellikleri taşıyan hem de etkinlik bazlı biletle
 
 - **Frontend:** React.js (Bu proje: `vize-ui`)
 - **Backend API:** Node.js / Express (bağlantılıdır)
-- **Veritabanı:** MongoDB / Firebase (isteğe göre)
+- **Veritabanı:** MongoDB
 - **Authentication:** JWT tabanlı kimlik doğrulama
 - **QR Kod:** Dinamik QR kod üretimi ve tarama
-- **Gerçek Zamanlılık:** WebSocket veya Firebase (isteğe göre)
-
 ---
 
 ## 🌐 Kullanım Senaryoları
